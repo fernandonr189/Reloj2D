@@ -27,9 +27,115 @@ public class Canvas extends JFrame {
         antiAliasedLine(100, 100, 500, 500, Color.red);
         antiAliasedLine(500, 100, 100, 300, Color.blue);
         antiAliasedLine(500, 100, 100, 500, Color.blue);
+        antiAliasedCircle(300, 300, 150, Color.magenta);
         getGraphics().drawImage(buffer,0,0,panel);
     }
-    public void antiAliasedLine(double x1, double y1, double x2, double y2, Color a) {
+
+    private void antiAliasedCircle(double xc, double yc, double radius, Color a) {
+        double initialX = xc - radius;
+        double finalX = xc + radius;
+        for(int i = (int) floor(initialX); i <= (int) floor(finalX); i++) {
+            double midX = i + 0.5;
+            double midY = sqrt(pow(radius, 2) - pow(midX - xc, 2)) + yc;
+            double tempY = floor(midY);
+            double q = midY - tempY;
+            try {
+                if(q > 0.5) {
+                    double percent = 1 - (q - 0.5);
+                    pixel(i, (int) tempY, a, (int) (percent * 255));
+                    pixel(i, (int) tempY + 1, a, (int) ((1 - percent) * 255));
+                }
+                else {
+                    double percent = 1 - (0.5 - q);
+                    pixel(i, (int) tempY, a, (int) (percent * 255));
+                    pixel(i, (int) tempY - 1, a, (int) ((1 - percent) * 255));
+                }
+            } catch (Exception ignored) {
+            }
+        }
+        for(int i = (int) floor(initialX); i <= (int) floor(finalX); i++) {
+            double midX = i + 0.5;
+            double midY = -sqrt(pow(radius, 2) - pow(midX - xc, 2)) + yc;
+            double tempY = floor(midY);
+            double q = midY - tempY;
+            try {
+                if(q > 0.5) {
+                    double percent = 1 - (q - 0.5);
+                    pixel(i, (int) tempY, a, (int) (percent * 255));
+                    pixel(i, (int) tempY + 1, a, (int) ((1 - percent) * 255));
+                }
+                else {
+                    double percent = 1 - (0.5 - q);
+                    pixel(i, (int) tempY, a, (int) (percent * 255));
+                    pixel(i, (int) tempY - 1, a, (int) ((1 - percent) * 255));
+                }
+            } catch (Exception ignored) {
+            }
+        }
+        double initialY = yc - radius;
+        double finalY = yc + radius;
+        for(int i = (int) floor(initialY); i <= (int) floor(finalY); i++) {
+            double midY = i + 0.5;
+            double midX = sqrt(pow(radius, 2) - pow(midY - yc, 2)) + xc;
+            double tempX = floor(midX);
+            double q = midX - tempX;
+            try {
+                if(q > 0.5) {
+                    double percent = 1 - (q - 0.5);
+                    pixel((int) tempX, i, a, (int) (percent * 255));
+                    pixel((int) tempX + 1, i, a, (int) ((1 - percent) * 255));
+                }
+                else {
+                    double percent = 1 - (0.5 - q);
+                    pixel((int) tempX, i, a, (int) (percent * 255));
+                    pixel((int) tempX - 1, i, a, (int) ((1 - percent) * 255));
+                }
+            } catch (Exception ignored) {
+            }
+        }
+        for(int i = (int) floor(initialY); i <= (int) floor(finalY); i++) {
+            double midY = i + 0.5;
+            double midX = -sqrt(pow(radius, 2) - pow(midY - yc, 2)) + xc;
+            double tempX = floor(midX);
+            double q = midX - tempX;
+            try {
+                if(q > 0.5) {
+                    double percent = 1 - (q - 0.5);
+                    pixel((int) tempX, i, a, (int) (percent * 255));
+                    pixel((int) tempX + 1, i, a, (int) ((1 - percent) * 255));
+                }
+                else {
+                    double percent = 1 - (0.5 - q);
+                    pixel((int) tempX, i, a, (int) (percent * 255));
+                    pixel((int) tempX - 1, i, a, (int) ((1 - percent) * 255));
+                }
+            } catch (Exception ignored) {
+            }
+        }
+
+    }
+
+    public void circuloBasico(int xc, int yc, int r, Color a){
+        int x1 = xc - r;
+        int x2 = xc + r;
+        for(int x = x1; x <= x2; x++){
+            double temp = Math.sqrt(Math.pow(r,2)-Math.pow((x-xc),2));
+            double ya = yc + temp;
+            double yb = yc - temp;
+            buffer.setRGB(x, (int) ya, a.getRGB());
+            buffer.setRGB(x, (int) yb, a.getRGB());
+        }
+        int y1 = yc-r;
+        int y2 = yc+r;
+        for(int y = y1; y <= y2; y++){
+            double temp = Math.sqrt(Math.pow(r,2)-Math.pow((y-yc),2));
+            double xa = xc + temp;
+            double xb = xc - temp;
+            pixel((int) xa, y, a, 255);
+            pixel((int) xb, y, a, 255);
+        }
+    }
+    private void antiAliasedLine(double x1, double y1, double x2, double y2, Color a) {
         double dx = x2 - x1;
         double dy = y2 - y1;
         double m = dy / dx;
