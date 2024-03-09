@@ -5,11 +5,8 @@ import java.awt.image.BufferedImage;
 import static java.lang.Math.*;
 
 public class Canvas extends JFrame {
-
     private final JPanel panel;
     private final BufferedImage buffer;
-
-
     public Canvas() {
         setTitle("LineaDDA");
         setSize(600, 600);
@@ -28,6 +25,7 @@ public class Canvas extends JFrame {
         antiAliasedLine(500, 100, 100, 300, Color.blue);
         antiAliasedLine(500, 100, 100, 500, Color.blue);
         antiAliasedCircle(300, 300, 150, Color.magenta);
+        antiAliasedCircle(200, 400, 60, Color.magenta);
         getGraphics().drawImage(buffer,0,0,panel);
     }
 
