@@ -104,7 +104,7 @@ public class Canvas extends JFrame {
         System.out.println("AntiAliased: " + timeElapsed + " nanosegundos");
     }
 
-    public void lineaBresenham(int x1, int y1, int x2, int y2, Color a){
+    public void lineaBresenham(int x1, int y1, int x2, int y2, Color a) {
         long start = System.nanoTime();
         int dy = y2 - y1;
         int dx = x2 - x1;
@@ -158,7 +158,7 @@ public class Canvas extends JFrame {
         System.out.println("Bresenham: " + timeElapsed + " nanosegundos");
     }
 
-    public void lineaDDA(int x1, int y1, int x2, int y2, Color a){
+    public void lineaDDA(int x1, int y1, int x2, int y2, Color a) {
         int dy = y2 - y1;
         int dx = x2 - x1;
         double m = (double) dy / dx;
