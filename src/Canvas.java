@@ -30,7 +30,6 @@ public class Canvas extends JFrame {
         getGraphics().drawImage(buffer,0,0,panel);
     }
     public void antiAliasedLine(double x1, double y1, double x2, double y2, Color a) {
-        long start = System.nanoTime();
         double dx = x2 - x1;
         double dy = y2 - y1;
         double m = dy / dx;
@@ -99,13 +98,9 @@ public class Canvas extends JFrame {
                 }
             }
         }
-        long finish = System.nanoTime();
-        long timeElapsed = finish - start;
-        System.out.println("AntiAliased: " + timeElapsed + " nanosegundos");
     }
 
     public void lineaBresenham(int x1, int y1, int x2, int y2, Color a) {
-        long start = System.nanoTime();
         int dy = y2 - y1;
         int dx = x2 - x1;
         int x = x1;
@@ -114,7 +109,6 @@ public class Canvas extends JFrame {
         int incX = 1;
         int incY = 1;
         double m = (double) dy / dx;
-        System.out.println("Pendiente: " + m);
 
         if (dy < 0){
             dy = -dy;
@@ -153,16 +147,12 @@ public class Canvas extends JFrame {
                 pixel(x, y, a, 255);
             }
         }
-        long finish = System.nanoTime();
-        long timeElapsed = finish - start;
-        System.out.println("Bresenham: " + timeElapsed + " nanosegundos");
     }
 
     public void lineaDDA(int x1, int y1, int x2, int y2, Color a) {
         int dy = y2 - y1;
         int dx = x2 - x1;
         double m = (double) dy / dx;
-        System.out.println("Pendiente: " + m);
 
         if (x1 > x2 || y1 > y2) {
             int tempX = x1;
