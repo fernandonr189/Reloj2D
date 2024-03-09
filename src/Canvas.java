@@ -24,7 +24,7 @@ public class Canvas extends JFrame {
 
     public void paint(Graphics g) {
         super.paint(g);
-        lineaBresenham(100, 100, 500, 500, Color.red);
+        antiAliasedLine(100, 100, 500, 500, Color.red);
         antiAliasedLine(500, 100, 100, 300, Color.blue);
         antiAliasedLine(500, 100, 100, 500, Color.blue);
         getGraphics().drawImage(buffer,0,0,panel);
@@ -190,6 +190,9 @@ public class Canvas extends JFrame {
     }
 
     private void pixel(int x, int y, Color a, int alpha) {
-        buffer.setRGB(x, y, new Color(a.getRed(), a.getGreen(), a.getBlue(), alpha).getRGB());
+        Color current = new Color(buffer.getRGB(x, y), true);
+        if(current.getAlpha() < alpha) {
+            buffer.setRGB(x, y, new Color(a.getRed(), a.getGreen(), a.getBlue(), alpha).getRGB());
+        }
     }
 }
