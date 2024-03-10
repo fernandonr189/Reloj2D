@@ -156,7 +156,7 @@ public class ClockFrame extends JPanel implements Runnable{
         while(noException) {
             try {
                 repaint();
-                Thread.sleep(1);
+                Thread.sleep(16);
             }
             catch (InterruptedException e) {
                 noException = false;
