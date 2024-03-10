@@ -59,16 +59,18 @@ public class ClockFrame extends JPanel implements Runnable{
         int minutes = cal.get(Calendar.MINUTE);
         int hours = cal.get(Calendar.HOUR);
         int seconds_length = (int) floor(innermostFrameDiameter / 2.5);
-        int minutes_length = (int) floor(innermostFrameDiameter / 2.8);
+        int minutes_length = (int) floor(innermostFrameDiameter / 3.0);
         int hours_length = (int) floor(innermostFrameDiameter / 3.5);
         double secondsAngle = (seconds + (milliseconds / 1000.0)) * (12 * Math.PI / 360) - Math.PI / 2;
         double minutesAngle = (minutes + (seconds / 60.0)) * (12 * Math.PI / 360) - Math.PI / 2;
         double hoursAngle = (hours + (minutes / 60.0)) * (60 * Math.PI / 360) - Math.PI / 2;
+        g.setColor(new Color(154, 43, 43));
         g.drawLine(
                 xc,
                 yc,
                 (int) (xc + (seconds_length * Math.cos(secondsAngle))),
                 (int) (yc + (seconds_length * Math.sin(secondsAngle))));
+        g.setColor(Color.BLACK);
         g.drawLine(
                 xc,
                 yc,
