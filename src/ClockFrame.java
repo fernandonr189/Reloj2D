@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 import static java.lang.Math.floor;
 
@@ -11,6 +13,9 @@ public class ClockFrame extends JPanel implements Runnable{
     private final int innermostFrameDiameter;
     private final int height;
     private final int width;
+
+    private final int xc;
+    private final int yc;
 
     private final String[] romanNumbers = {"I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII"};
 
@@ -24,7 +29,8 @@ public class ClockFrame extends JPanel implements Runnable{
         this.bufferedImage = bufferedImage;
         this.height = height;
         this.width = width;
-
+        xc = (width / 2);
+        yc = (height / 2);
         Thread thread = new Thread(this);
         thread.start();
     }
@@ -38,7 +44,41 @@ public class ClockFrame extends JPanel implements Runnable{
         setBackground(Color.black);
         drawClockFrame(graphics2D);
         graphics2D.setClip(0, 0, width, height);
+        update(graphics2D, g);
+    }
+
+    public void update(Graphics2D graphics2D, Graphics g) {
+        drawClockHands(graphics2D);
         g.drawImage(bufferedImage, 0, 0, this);
+    }
+
+    private void drawClockHands(Graphics2D g){
+        Calendar cal = Calendar.getInstance();
+        int seconds = cal.get(Calendar.SECOND);
+        int milliseconds = cal.get(Calendar.MILLISECOND);
+        int minutes = cal.get(Calendar.MINUTE);
+        int hours = cal.get(Calendar.HOUR);
+        int seconds_length = (int) floor(innermostFrameDiameter / 2.5);
+        int minutes_length = (int) floor(innermostFrameDiameter / 2.8);
+        int hours_length = (int) floor(innermostFrameDiameter / 3.5);
+        double secondsAngle = (seconds + (milliseconds / 1000.0)) * (12 * Math.PI / 360) - Math.PI / 2;
+        double minutesAngle = (minutes + (seconds / 60.0)) * (12 * Math.PI / 360) - Math.PI / 2;
+        double hoursAngle = (hours + (minutes / 60.0)) * (60 * Math.PI / 360) - Math.PI / 2;
+        g.drawLine(
+                xc,
+                yc,
+                (int) (xc + (seconds_length * Math.cos(secondsAngle))),
+                (int) (yc + (seconds_length * Math.sin(secondsAngle))));
+        g.drawLine(
+                xc,
+                yc,
+                (int) (xc + (minutes_length * Math.cos(minutesAngle))),
+                (int) (yc + (minutes_length * Math.sin(minutesAngle))));
+        g.drawLine(
+                xc,
+                yc,
+                (int) (xc + (hours_length * Math.cos(hoursAngle))),
+                (int) (yc + (hours_length * Math.sin(hoursAngle))));
     }
 
     private void drawClockFrame(Graphics2D g) {
@@ -52,8 +92,8 @@ public class ClockFrame extends JPanel implements Runnable{
                 innerFrameDiameter,
                 innerFrameDiameter);
         g.setStroke(new BasicStroke(2));
-        g.drawOval((
-                (width / 2)) - (innermostFrameDiameter / 2),
+        g.drawOval(
+                (width / 2) - (innermostFrameDiameter / 2),
                 (height / 2) - (innermostFrameDiameter / 2),
                 innermostFrameDiameter,
                 innermostFrameDiameter);
@@ -102,6 +142,8 @@ public class ClockFrame extends JPanel implements Runnable{
         int s = (int) (innermostFrameDiameter / 2.1);
         for(int i = -2; i < 10; i++) {
             double angle = i * (60 * Math.PI / 360);
+            Font font = new Font("Times New Roman", Font.ITALIC, 15);
+            g.setFont(font);
             g.drawString(romanNumbers[i + 2],
                     (float) (xc + (s * Math.cos(angle)) - 5),
                     (float) (yc + (s * Math.sin(angle))) + 5);
