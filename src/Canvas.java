@@ -8,8 +8,8 @@ public class Canvas extends JFrame {
     private int width;
 
     public Canvas(int width, int height) {
-        BufferedImage buffer = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        setTitle("LineaDDA");
+        BufferedImage backgroundBuffer = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        setTitle("Reloj");
         setSize(width, height);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -17,7 +17,7 @@ public class Canvas extends JFrame {
                 height > width
                         ? width - 50
                         : height - 50,
-                buffer,
+                backgroundBuffer,
                 width,
                 height));
         setVisible(true);

@@ -12,6 +12,8 @@ public class ClockFrame extends JPanel {
     private final int height;
     private final int width;
 
+    private String[] romanNumbers = {"I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII"};
+
     private final BufferedImage bufferedImage;
     public ClockFrame(int _diameter, BufferedImage _bufferedImage, int width, int height) {
         this.diameter = _diameter;
@@ -52,6 +54,7 @@ public class ClockFrame extends JPanel {
                 innermostFrameDiameter);
         drawSecondsDivisions(g);
         drawHoursDivision(g);
+        hourNumbers(g);
     }
 
     private void drawSecondsDivisions(Graphics2D g) {
@@ -84,6 +87,19 @@ public class ClockFrame extends JPanel {
                     (int) (yc + (s_max * Math.sin(angle))),
                     (int) (xc + (s_min * Math.cos(angle))),
                     (int) (yc + (s_min * Math.sin(angle))));
+        }
+    }
+
+    private void hourNumbers(Graphics2D g) {
+        g.setColor(Color.BLACK);
+        int xc = (width / 2);
+        int yc = (height / 2);
+        int s = (int) (innermostFrameDiameter / 2.1);
+        for(int i = -2; i < 10; i++) {
+            double angle = i * (60 * Math.PI / 360);
+            g.drawString(romanNumbers[i + 2],
+                    (float) (xc + (s * Math.cos(angle)) - 5),
+                    (float) (yc + (s * Math.sin(angle))) + 5);
         }
     }
 }
