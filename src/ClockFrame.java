@@ -50,33 +50,33 @@ public class ClockFrame extends JPanel {
     private void drawSecondsDivisions(Graphics2D g) {
         g.setColor(Color.BLACK);
         g.setStroke(new BasicStroke(1));
+        int xc = (width / 2);
+        int yc = (height / 2);
+        int s_min = innermostFrameDiameter / 2;
+        int s_max = innerFrameDiameter / 2;
         for(int i = 0; i < 60; i++) {
-            int xc = (width / 2);
-            int yc = (height / 2);
-            int s_min = innermostFrameDiameter / 2;
-            int s_max = innerFrameDiameter / 2;
             double angle = i * (12 * Math.PI / 360);
-            int x1 = (int) (xc + (s_max * Math.cos(angle)));
-            int y1 = (int) (yc + (s_max * Math.sin(angle)));
-            int x2 = (int) (xc + (s_min * Math.cos(angle)));
-            int y2 = (int) (yc + (s_min * Math.sin(angle)));
-            g.drawLine(x1, y1, x2, y2);
+            g.drawLine(
+                    (int) (xc + (s_max * Math.cos(angle))),
+                    (int) (yc + (s_max * Math.sin(angle))),
+                    (int) (xc + (s_min * Math.cos(angle))),
+                    (int) (yc + (s_min * Math.sin(angle))));
         }
     }
     private void drawHoursDivision(Graphics2D g) {
         g.setStroke(new BasicStroke(3));
         g.setColor(Color.BLACK);
+        int xc = (width / 2);
+        int yc = (height / 2);
+        int s_min = innermostFrameDiameter / 2;
+        int s_max = innerFrameDiameter / 2;
         for(int i = 0; i < 12; i++) {
-            int xc = (width / 2);
-            int yc = (height / 2);
-            int s_min = innermostFrameDiameter / 2;
-            int s_max = innerFrameDiameter / 2;
             double angle = i * (60 * Math.PI / 360);
-            int x1 = (int) (xc + (s_max * Math.cos(angle)));
-            int y1 = (int) (yc + (s_max * Math.sin(angle)));
-            int x2 = (int) (xc + (s_min * Math.cos(angle)));
-            int y2 = (int) (yc + (s_min * Math.sin(angle)));
-            g.drawLine(x1, y1, x2, y2);
+            g.drawLine(
+                    (int) (xc + (s_max * Math.cos(angle))),
+                    (int) (yc + (s_max * Math.sin(angle))),
+                    (int) (xc + (s_min * Math.cos(angle))),
+                    (int) (yc + (s_min * Math.sin(angle))));
         }
     }
 }
