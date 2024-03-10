@@ -4,15 +4,22 @@ import java.awt.image.BufferedImage;
 
 public class Canvas extends JFrame {
 
+    private int height;
+    private int width;
 
-    public Canvas() {
-        BufferedImage buffer = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB);
+    public Canvas(int width, int height) {
+        BufferedImage buffer = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         setTitle("LineaDDA");
-        setSize(600, 600);
+        setSize(width, height);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        ClockFrame clockFrame = new ClockFrame(450);
-        add(clockFrame);
+        add(new ClockFrame(
+                height > width
+                        ? width - 50
+                        : height - 50,
+                buffer,
+                width,
+                height));
         setVisible(true);
     }
     @Override

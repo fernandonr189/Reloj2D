@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 import static java.lang.Math.floor;
 
@@ -8,26 +9,29 @@ public class ClockFrame extends JPanel {
     private final int diameter;
     private final int innerFrameDiameter;
     private final int innermostFrameDiameter;
-    private int height;
-    private int width;
-    public ClockFrame(int _diameter) {
-        super(true);
+    private final int height;
+    private final int width;
+
+    private final BufferedImage bufferedImage;
+    public ClockFrame(int _diameter, BufferedImage _bufferedImage, int width, int height) {
         this.diameter = _diameter;
         this.innerFrameDiameter = (int) floor((diameter * 0.95));
         this.innermostFrameDiameter = (int) floor((diameter * 0.90));
-
+        this.bufferedImage = _bufferedImage;
+        this.height = height;
+        this.width = width;
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Graphics2D graphics2D = (Graphics2D) g;
+        Graphics2D graphics2D = this.bufferedImage.createGraphics();
         graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         graphics2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        this.height = this.getHeight();
-        this.width = this.getWidth();
         setBackground(Color.black);
         drawClockFrame(graphics2D);
+        graphics2D.setClip(0, 0, width, height);
+        g.drawImage(bufferedImage, 0, 0, this);
     }
 
     private void drawClockFrame(Graphics2D g) {
