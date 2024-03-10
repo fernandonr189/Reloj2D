@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 
+import static java.lang.Math.floor;
+
 public class ClockFrame extends JPanel {
 
     private final int diameter;
@@ -8,11 +10,11 @@ public class ClockFrame extends JPanel {
     private final int innermostFrameDiameter;
     private int height;
     private int width;
-    public ClockFrame(int _radius) {
+    public ClockFrame(int _diameter) {
         super(true);
-        this.diameter = _radius;
-        this.innerFrameDiameter = (int) (diameter * 0.95);
-        this.innermostFrameDiameter = (int) (diameter * 0.90);
+        this.diameter = _diameter;
+        this.innerFrameDiameter = (int) floor((diameter * 0.95));
+        this.innermostFrameDiameter = (int) floor((diameter * 0.90));
 
     }
 
@@ -38,6 +40,7 @@ public class ClockFrame extends JPanel {
                 (height / 2) - (innerFrameDiameter / 2),
                 innerFrameDiameter,
                 innerFrameDiameter);
+        g.setStroke(new BasicStroke(2));
         g.drawOval((
                 (width / 2)) - (innermostFrameDiameter / 2),
                 (height / 2) - (innermostFrameDiameter / 2),
