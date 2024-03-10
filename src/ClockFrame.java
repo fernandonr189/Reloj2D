@@ -12,14 +12,16 @@ public class ClockFrame extends JPanel {
     private final int height;
     private final int width;
 
-    private String[] romanNumbers = {"I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII"};
+    private final String[] romanNumbers = {"I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII"};
 
     private final BufferedImage bufferedImage;
-    public ClockFrame(int _diameter, BufferedImage _bufferedImage, int width, int height) {
-        this.diameter = _diameter;
+    public ClockFrame(BufferedImage bufferedImage, int width, int height) {
+        this.diameter = height > width
+                ? width - 50
+                : height - 50;
         this.innerFrameDiameter = (int) floor((diameter * 0.95));
         this.innermostFrameDiameter = (int) floor((diameter * 0.90));
-        this.bufferedImage = _bufferedImage;
+        this.bufferedImage = bufferedImage;
         this.height = height;
         this.width = width;
     }

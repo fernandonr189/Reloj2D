@@ -13,13 +13,7 @@ public class Canvas extends JFrame {
         setSize(width, height);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        add(new ClockFrame(
-                height > width
-                        ? width - 50
-                        : height - 50,
-                backgroundBuffer,
-                width,
-                height));
+        add(new ClockFrame(backgroundBuffer, width, height));
         setVisible(true);
     }
     @Override
