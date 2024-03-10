@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 import static java.lang.Math.floor;
 
-public class ClockFrame extends JPanel {
+public class ClockFrame extends JPanel implements Runnable{
 
     private final int diameter;
     private final int innerFrameDiameter;
@@ -24,6 +24,9 @@ public class ClockFrame extends JPanel {
         this.bufferedImage = bufferedImage;
         this.height = height;
         this.width = width;
+
+        Thread thread = new Thread(this);
+        thread.start();
     }
 
     @Override
@@ -102,6 +105,20 @@ public class ClockFrame extends JPanel {
             g.drawString(romanNumbers[i + 2],
                     (float) (xc + (s * Math.cos(angle)) - 5),
                     (float) (yc + (s * Math.sin(angle))) + 5);
+        }
+    }
+
+    @Override
+    public void run() {
+        boolean noException = true;
+        while(noException) {
+            try {
+                repaint();
+                Thread.sleep(1);
+            }
+            catch (InterruptedException e) {
+                noException = false;
+            }
         }
     }
 }

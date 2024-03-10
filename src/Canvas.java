@@ -4,9 +4,6 @@ import java.awt.image.BufferedImage;
 
 public class Canvas extends JFrame {
 
-    private int height;
-    private int width;
-
     public Canvas(int width, int height) {
         BufferedImage backgroundBuffer = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         setTitle("Reloj");
