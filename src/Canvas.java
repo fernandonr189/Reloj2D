@@ -11,7 +11,7 @@ public class Canvas extends JFrame {
         setSize(600, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        ClockFrame clockFrame = new ClockFrame(550);
+        ClockFrame clockFrame = new ClockFrame(450);
         add(clockFrame);
         setVisible(true);
     }
