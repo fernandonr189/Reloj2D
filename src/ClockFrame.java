@@ -49,6 +49,7 @@ public class ClockFrame extends JPanel implements Runnable{
 
     public void update(Graphics2D graphics2D, Graphics g) {
         drawClockHands(graphics2D);
+        pixelMethods.antiAliasedCircle(width / 2, height / 2, 150, Color.black, bufferedImage);
         g.drawImage(bufferedImage, 0, 0, this);
     }
 
